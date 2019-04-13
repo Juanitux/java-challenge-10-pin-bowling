@@ -5,17 +5,32 @@
  */
 package bowlingchallenge;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
+
 /**
  *
  * @author Juan Carlos Lopez
  */
 public class main {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws IOException 
+    {
+        String delimiter = " ";
+        Map<String, String> map = new HashMap<>();
+
+        try(Stream<String> lines = Files.lines(Paths.get("D:\\Desktop\\10pinbowling.txt"))){
+            lines.filter(line -> line.contains(delimiter)).forEach(
+                line -> map.putIfAbsent(line.split(delimiter)[0], line.split(delimiter)[1])
+            );
+            System.out.println(map);     
+        }
+            
     }
-    
 }
+    
+
